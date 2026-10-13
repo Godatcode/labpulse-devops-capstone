@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: labpulse
+      POSTGRES_USER: labpulse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-labpulse-local-only}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labpulse -d labpulse"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://labpulse:${POSTGRES_PASSWORD:-labpulse-local-only}@db:5432/labpulse
+      DEMO_SEED: "1"
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=3)"]
+      interval: 5s
+      timeout: 4s
+      retries: 12
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  db_data:
