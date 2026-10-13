@@ -1,6 +1,6 @@
 # Validation record
 
-Checked on 13–14 October 2026, using the local Compose stack and a Kind cluster. The AWS plan below is offline.
+Checked on 13–14 October 2026, using the local Compose stack, a Kind cluster, and an authenticated AWS plan. No AWS infrastructure has been created yet.
 
 ## Visual evidence
 
@@ -26,6 +26,7 @@ Checked on 13–14 October 2026, using the local Compose stack and a Kind cluste
 | Terraform init | HashiCorp AWS provider v6.68.0 installed successfully |
 | Terraform validate | `Success! The configuration is valid.` |
 | Terraform offline plan | `Plan: 24 to add, 0 to change, 0 to destroy.` |
+| Terraform AWS plan | Authenticated plan in `ap-southeast-2`: `Plan: 24 to add, 0 to change, 0 to destroy.` |
 | HPA metrics | CPU available; backend at 2 replicas with 70% target |
 | Prometheus | Two `labpulse-backend` pod targets UP; request count query returned data |
 | Grafana | Dashboard `LabPulse · API health` provisioned with 3 panels and Prometheus datasource |
@@ -42,7 +43,7 @@ docker run --rm \
   -var=admin_cidr=203.0.113.1/32 -var=offline_plan=true
 ```
 
-The full output is in [terraform-offline-plan.txt](terraform-offline-plan.txt). There is no real EKS provisioning or destroy evidence because no AWS account credentials are configured.
+The full archived offline output is in [terraform-offline-plan.txt](terraform-offline-plan.txt). On 14 October, the AWS CLI profile authenticated successfully. EKS and VPC read calls worked in `ap-southeast-2`; the account had no EKS clusters there. Terraform validated and produced a fresh plan against the account with two `t3.small` workers and a restricted API CIDR. The saved plan and its exact CIDR are local and excluded from Git. This is still plan evidence only: there is no EKS provisioning or destroy evidence yet.
 
 The local command outputs are in [tests.txt](tests.txt), [compose.txt](compose.txt), and [kubernetes.txt](kubernetes.txt). The [successful CI run](https://github.com/Godatcode/labpulse-devops-capstone/actions/runs/38449191634) shows tests, builds, scans, and publication. Both SHA-tagged GHCR manifests were accessible from Docker without a GHCR login.
 

@@ -77,9 +77,9 @@ Generate a few requests against `http://localhost:8081/api/summary` and refresh 
 
 Open the latest run on [GitHub Actions](https://github.com/Godatcode/labpulse-devops-capstone/actions). Point out the test and frontend jobs, the two Trivy scans, and the SHA image tags. After a small code change passes CI, run `bash scripts/deploy-local.sh` and show the new image tags with `kubectl -n labpulse get deploy -o wide`. The script builds for the local Kind machine, then updates Helm; GitHub Actions publishes the registry images separately.
 
-## 5. Terraform evidence if an AWS account is provided
+## 5. Terraform evidence in AWS
 
-The [validation notes](evidence/validation.md) contain the offline plan. Do not present it as an AWS deployment. With approved account access and a budget, set `admin_cidr` to your current public IP, run `terraform init`, `plan`, and `apply`, then take VPC and EKS Console screenshots. After showing the cluster, run `terraform destroy` and capture its completion. A Builder ID without account access cannot complete these steps.
+The [validation notes](evidence/validation.md) contain both the archived offline plan and the result of an authenticated plan in Sydney (`ap-southeast-2`). Neither is deployment evidence. Before the demo, review the cost and set `admin_cidr` to your current public IP. Apply the reviewed plan, take VPC and EKS Console screenshots and show the managed nodes, then run `terraform destroy` and capture its completion. Keep credentials, state, and plan files out of Git.
 
 ## Evidence to capture for the submission
 

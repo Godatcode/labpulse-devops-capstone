@@ -95,9 +95,9 @@ After a new commit passes CI, run `bash scripts/deploy-local.sh` to rebuild that
 
 ## Terraform and AWS
 
-`terraform/` defines a VPC with two public and two private subnets, internet and NAT routing, an EKS control plane, and a two-node managed group. `terraform init` and `terraform validate` passed. An **offline** plan produced `24 to add, 0 to change, 0 to destroy`; it uses the provider's identity-check bypass only for planning. It does not prove that AWS accepted or created those resources. The plan details and exact command are in [validation notes](docs/evidence/validation.md).
+`terraform/` defines a VPC with two public and two private subnets, internet and NAT routing, an EKS control plane, and a two-node managed group. It defaults to `ap-southeast-2`, the Region available to the project account, with two `t3.small` workers. `terraform init` and `terraform validate` passed. An authenticated AWS plan produced `24 to add, 0 to change, 0 to destroy`; the earlier offline plan is retained separately in the [validation notes](docs/evidence/validation.md). A plan checks the configuration but does not create infrastructure.
 
-An AWS Builder ID alone does not provide this project with AWS account credentials. I have not run `terraform apply` or `terraform destroy`, and there are no AWS Console screenshots. EKS, worker nodes, and NAT incur charges. If an AWS account is made available for evaluation, use a restricted `admin_cidr`, confirm pricing, capture the required evidence, then run `terraform destroy` immediately after the demo. Do not commit `terraform.tfvars`, state, or credentials.
+`terraform apply` and `terraform destroy` have not run yet, so there are no AWS deployment screenshots. EKS, worker nodes, NAT, storage, and data transfer consume AWS credits while running. For the live demonstration, set `admin_cidr` to the current public IP, review the plan and cost, apply, capture VPC and EKS evidence, then destroy immediately after the demo. Do not commit `terraform.tfvars`, state, plan files, or credentials.
 
 ## Monitoring
 
@@ -105,4 +105,4 @@ The backend exposes request counts and latency metrics at `/metrics`. The [Prome
 
 ## Current limits
 
-LabPulse is a classroom operations demo. It has no login or role checks, and the demo PostgreSQL chart uses a single replica. The local Ingress uses HTTP. Do not place this build on a public campus network without authentication, TLS, and a managed database. The Terraform EKS path has been validated and planned offline, but not applied to AWS.
+LabPulse is a classroom operations demo. It has no login or role checks, and the demo PostgreSQL chart uses a single replica. The local Ingress uses HTTP. Do not place this build on a public campus network without authentication, TLS, and a managed database. The Terraform EKS path has been validated and planned against the project AWS account, but not applied.

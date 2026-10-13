@@ -1,7 +1,7 @@
 variable "aws_region" {
   description = "AWS Region for the short-lived EKS demonstration."
   type        = string
-  default     = "ap-south-1"
+  default     = "ap-southeast-2"
 }
 
 variable "cluster_name" {
@@ -13,7 +13,7 @@ variable "cluster_name" {
 variable "availability_zones" {
   description = "Two available zones in the selected Region."
   type        = list(string)
-  default     = ["ap-south-1a", "ap-south-1b"]
+  default     = ["ap-southeast-2a", "ap-southeast-2b"]
 
   validation {
     condition     = length(var.availability_zones) == 2 && var.availability_zones[0] != var.availability_zones[1]
@@ -34,7 +34,7 @@ variable "admin_cidr" {
 variable "node_instance_type" {
   description = "EC2 size for the managed node group."
   type        = string
-  default     = "t3.medium"
+  default     = "t3.small"
 }
 
 variable "offline_plan" {
