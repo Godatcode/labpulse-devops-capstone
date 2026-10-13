@@ -75,7 +75,7 @@ Generate a few requests against `http://localhost:8081/api/summary` and refresh 
 
 ## 4. Explain the pipeline
 
-Open the latest run on [GitHub Actions](https://github.com/Godatcode/labpulse-devops-capstone/actions). Point out the test and frontend jobs, the two Trivy scans, and the SHA image tags. Push a small, real code or documentation change during the presentation only if the presenter can wait for the full run.
+Open the latest run on [GitHub Actions](https://github.com/Godatcode/labpulse-devops-capstone/actions). Point out the test and frontend jobs, the two Trivy scans, and the SHA image tags. After a small code change passes CI, run `bash scripts/deploy-local.sh` and show the new image tags with `kubectl -n labpulse get deploy -o wide`. The script builds for the local Kind machine, then updates Helm; GitHub Actions publishes the registry images separately.
 
 ## 5. Terraform evidence if an AWS account is provided
 

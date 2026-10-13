@@ -56,6 +56,12 @@ spec:
               value: {{ ternary "1" "0" .Values.backend.demoSeed | quote }}
           resources:
             {{- toYaml .Values.backend.resources | nindent 12 }}
+          startupProbe:
+            httpGet:
+              path: /ready
+              port: http
+            periodSeconds: 5
+            failureThreshold: 60
           readinessProbe:
             httpGet:
               path: /ready

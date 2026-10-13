@@ -62,6 +62,8 @@ python3.12 -m venv .venv
 
 The 10 API tests use a separate in-memory SQLite database. They cover equipment creation, duplicate codes, incident creation and filtering, repair status changes, deletion, and health checks. Every push to `main` runs tests and a production frontend build before building images. Trivy checks OS and library packages in both images and fails on HIGH or CRITICAL findings. If both scans pass, CI publishes `ghcr.io/godatcode/labpulse-backend:<commit-sha>` and `ghcr.io/godatcode/labpulse-frontend:<commit-sha>`.
 
+The public package pages are [backend](https://github.com/Godatcode/labpulse-devops-capstone/pkgs/container/labpulse-backend) and [frontend](https://github.com/Godatcode/labpulse-devops-capstone/pkgs/container/labpulse-frontend). Their tags match the commit shown in the successful Actions run.
+
 ## Kubernetes on a local Kind cluster
 
 The local run exercises the same Helm chart without an AWS bill. Install Kind, Helm, kubectl, and Docker first.
@@ -86,6 +88,8 @@ kubectl -n ingress-nginx port-forward svc/ingress-nginx-controller 8081:80
 ```
 
 Open [http://localhost:8081](http://localhost:8081). `/api` goes to the backend Service, and `/` goes to the frontend Service. The HPA needs Metrics Server; see [the demo runbook](docs/DEMO.md) for the local Kind installation and verification commands.
+
+After a new commit passes CI, run `bash scripts/deploy-local.sh` to rebuild that revision for the local Kind architecture and roll both Deployments to SHA-tagged images. `KIND_CLUSTER` and `KUBE_CONTEXT` can point the script at another local Kind cluster.
 
 ## Terraform and AWS
 

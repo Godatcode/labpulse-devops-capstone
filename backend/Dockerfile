@@ -1,5 +1,9 @@
 FROM python:3.12-alpine
 
+LABEL org.opencontainers.image.source="https://github.com/Godatcode/labpulse-devops-capstone" \
+      org.opencontainers.image.title="LabPulse API" \
+      org.opencontainers.image.description="Equipment and incident API for campus labs"
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
