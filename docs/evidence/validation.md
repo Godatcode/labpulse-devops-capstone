@@ -1,6 +1,6 @@
 # Validation record
 
-Checked on 13 October 2026, using the local Compose stack and a Kind cluster. The AWS plan below is offline.
+Checked on 13–14 October 2026, using the local Compose stack and a Kind cluster. The AWS plan below is offline.
 
 | Check | Result |
 | --- | --- |
@@ -32,3 +32,7 @@ docker run --rm \
 ```
 
 The full output is in [terraform-offline-plan.txt](terraform-offline-plan.txt). There is no real EKS provisioning or destroy evidence because no AWS account credentials are configured.
+
+The local command outputs are in [tests.txt](tests.txt), [compose.txt](compose.txt), and [kubernetes.txt](kubernetes.txt). The [successful CI run](https://github.com/Godatcode/labpulse-devops-capstone/actions/runs/38447279664) shows tests, builds, scans, and publication. Both SHA-tagged GHCR manifests were accessible from Docker without a GHCR login.
+
+Trivy scanned Alpine OS packages in both runtime images and Python libraries in the backend. The first frontend scan found 43 HIGH findings in an older Nginx base; after moving to the current slim unprivileged image, the successful run reported zero HIGH/CRITICAL findings for both images. The gate still exits with a failure if a new HIGH or CRITICAL issue appears.

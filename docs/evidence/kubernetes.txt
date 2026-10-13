@@ -1,0 +1,18 @@
+Verified 2026-10-14 00:05 IST
+NAME                                 READY   STATUS    RESTARTS   AGE
+labpulse-backend-86cb94cc4f-5srkd    1/1     Running   0          75s
+labpulse-backend-86cb94cc4f-pnhbf    1/1     Running   0          81s
+labpulse-frontend-6b8dd6f6-n747h     1/1     Running   0          80s
+labpulse-frontend-6b8dd6f6-nkv9q     1/1     Running   0          81s
+labpulse-postgres-6f7fc94bc9-78b6v   1/1     Running   0          17m
+NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+backend    ClusterIP   10.96.97.69    <none>        8000/TCP   17m
+frontend   ClusterIP   10.96.37.134   <none>        8080/TCP   17m
+postgres   ClusterIP   10.96.40.29    <none>        5432/TCP   17m
+NAME                                 CLASS   HOSTS       ADDRESS        PORTS   AGE
+ingress.networking.k8s.io/labpulse   nginx   localhost   10.96.29.201   80      17m
+
+NAME                                                   REFERENCE                     TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/labpulse-backend   Deployment/labpulse-backend   cpu: 4%/70%   2         4         2          17m
+NAME    	NAMESPACE	REVISION	UPDATED                            	STATUS  	CHART         	APP VERSION
+labpulse	labpulse 	3       	2026-10-14 00:03:30.01162 +0530 IST	deployed	labpulse-0.1.0	1.0.0      

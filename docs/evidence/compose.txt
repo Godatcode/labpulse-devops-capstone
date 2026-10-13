@@ -1,0 +1,5 @@
+Verified 2026-10-14 00:05 IST
+NAME                  IMAGE                COMMAND                  SERVICE    CREATED              STATUS                        PORTS
+labpulse-backend-1    labpulse-backend     "./entrypoint.sh"        backend    About a minute ago   Up About a minute (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+labpulse-db-1         postgres:17-alpine   "docker-entrypoint.s…"   db         20 minutes ago       Up 20 minutes (healthy)       5432/tcp
+labpulse-frontend-1   labpulse-frontend    "/docker-entrypoint.…"   frontend   About a minute ago   Up About a minute             0.0.0.0:3000->8080/tcp, [::]:3000->8080/tcp
