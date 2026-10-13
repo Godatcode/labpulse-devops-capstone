@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: labpulse-dashboard
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  labpulse.json: |
+    {
+      "uid": "labpulse-ops",
+      "title": "LabPulse · API health",
+      "tags": ["labpulse", "capstone"],
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "15s",
+      "time": {"from": "now-30m", "to": "now"},
+      "panels": [
+        {
+          "id": 1,
+          "type": "stat",
+          "title": "Requests handled",
+          "gridPos": {"h": 7, "w": 8, "x": 0, "y": 0},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "targets": [{"refId": "A", "expr": "sum(http_requests_total{job=\"labpulse-backend\"})"}],
+          "fieldConfig": {"defaults": {"unit": "short"}, "overrides": []},
+          "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}}
+        },
+        {
+          "id": 2,
+          "type": "timeseries",
+          "title": "Requests per minute",
+          "gridPos": {"h": 8, "w": 16, "x": 8, "y": 0},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "targets": [{"refId": "A", "expr": "sum by (handler) (rate(http_requests_total{job=\"labpulse-backend\"}[5m])) * 60", "legendFormat": "{{handler}}"}],
+          "fieldConfig": {"defaults": {"unit": "reqpm"}, "overrides": []}
+        },
+        {
+          "id": 3,
+          "type": "timeseries",
+          "title": "95th percentile response time",
+          "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "targets": [{"refId": "A", "expr": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_highr_seconds_bucket{job=\"labpulse-backend\"}[5m])))", "legendFormat": "p95"}],
+          "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []}
+        }
+      ]
+    }
