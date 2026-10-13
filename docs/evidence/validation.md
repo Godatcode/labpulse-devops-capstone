@@ -2,6 +2,12 @@
 
 Checked on 13–14 October 2026, using the local Compose stack and a Kind cluster. The AWS plan below is offline.
 
+## Visual evidence
+
+- [LabPulse overview through the local Ingress](labpulse-ingress.jpg)
+- [Prometheus: both backend targets UP](prometheus-targets.jpg)
+- [Grafana: request volume, rate, and p95 latency](grafana-dashboard.jpg)
+
 | Check | Result |
 | --- | --- |
 | Backend unit/API tests | 10 passed against isolated SQLite database |
