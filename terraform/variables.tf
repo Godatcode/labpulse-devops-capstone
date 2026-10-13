@@ -36,3 +36,9 @@ variable "node_instance_type" {
   type        = string
   default     = "t3.medium"
 }
+
+variable "offline_plan" {
+  description = "Skip AWS identity checks for a local-only plan. Never apply with this enabled."
+  type        = bool
+  default     = false
+}
