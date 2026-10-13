@@ -1,0 +1,42 @@
+AWS deployment verified: 2026-10-13 19:44:52 UTC
+
+$ aws eks describe-cluster --name labpulse-capstone --region ap-southeast-2 --query cluster.{name:name,status:status,version:version,vpcId:resourcesVpcConfig.vpcId}
+{
+    "name": "labpulse-capstone",
+    "status": "ACTIVE",
+    "version": "1.36",
+    "vpcId": "vpc-0727dbb36767921b3"
+}
+
+$ aws eks describe-nodegroup --cluster-name labpulse-capstone --nodegroup-name labpulse-capstone-nodes --region ap-southeast-2 --query nodegroup.{name:nodegroupName,status:status,instanceTypes:instanceTypes,desired:scalingConfig.desiredSize}
+{
+    "name": "labpulse-capstone-nodes",
+    "status": "ACTIVE",
+    "instanceTypes": [
+        "t3.small"
+    ],
+    "desired": 2
+}
+
+$ kubectl --kubeconfig /tmp/labpulse-eks-kubeconfig get nodes
+NAME                                              STATUS   ROLES    AGE     VERSION
+ip-10-42-10-245.ap-southeast-2.compute.internal   Ready    <none>   2m12s   v1.36.4-eks-3b4a6ca
+ip-10-42-11-221.ap-southeast-2.compute.internal   Ready    <none>   2m13s   v1.36.4-eks-3b4a6ca
+
+$ aws ec2 describe-vpcs --region ap-southeast-2 --filters Name=tag:Project,Values=LabPulse
+[
+    {
+        "id": "vpc-0727dbb36767921b3",
+        "cidr": "10.42.0.0/16",
+        "state": "available"
+    }
+]
+
+$ aws ec2 describe-nat-gateways --region ap-southeast-2 --filter Name=tag:Project,Values=LabPulse
+[
+    {
+        "id": "nat-0e1e26e3d4fe352c5",
+        "state": "available",
+        "vpcId": "vpc-0727dbb36767921b3"
+    }
+]

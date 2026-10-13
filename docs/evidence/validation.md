@@ -1,6 +1,6 @@
 # Validation record
 
-Checked on 13–14 October 2026, using the local Compose stack, a Kind cluster, and an authenticated AWS plan. No AWS infrastructure has been created yet.
+Checked on 13–14 October 2026, using the local Compose stack, a Kind cluster, and a short-lived EKS deployment in AWS Sydney. The AWS resources were removed after verification.
 
 ## Visual evidence
 
@@ -12,6 +12,8 @@ Checked on 13–14 October 2026, using the local Compose stack, a Kind cluster, 
 - [Published backend image with SHA tag](ghcr-backend.jpg)
 - [Published frontend image with SHA tag](ghcr-frontend.jpg)
 - [Meaningful Git commit history](github-history.jpg)
+- [AWS EKS cluster active in Sydney](aws-eks-active.jpg)
+- [AWS VPC and subnet resource map](aws-vpc-active.jpg)
 
 | Check | Result |
 | --- | --- |
@@ -27,6 +29,10 @@ Checked on 13–14 October 2026, using the local Compose stack, a Kind cluster, 
 | Terraform validate | `Success! The configuration is valid.` |
 | Terraform offline plan | `Plan: 24 to add, 0 to change, 0 to destroy.` |
 | Terraform AWS plan | Authenticated plan in `ap-southeast-2`: `Plan: 24 to add, 0 to change, 0 to destroy.` |
+| Terraform apply | `Apply complete! Resources: 24 added, 0 changed, 0 destroyed.` |
+| AWS live checks | EKS cluster and managed node group `ACTIVE`; two `t3.small` nodes `Ready`; VPC and NAT available |
+| Terraform destroy | `Destroy complete! Resources: 24 destroyed.` |
+| AWS post-destroy checks | No EKS clusters, no LabPulse VPC or Elastic IP; former NAT gateway `deleted`; Terraform state empty |
 | HPA metrics | CPU available; backend at 2 replicas with 70% target |
 | Prometheus | Two `labpulse-backend` pod targets UP; request count query returned data |
 | Grafana | Dashboard `LabPulse · API health` provisioned with 3 panels and Prometheus datasource |
@@ -43,7 +49,7 @@ docker run --rm \
   -var=admin_cidr=203.0.113.1/32 -var=offline_plan=true
 ```
 
-The full archived offline output is in [terraform-offline-plan.txt](terraform-offline-plan.txt). On 14 October, the AWS CLI profile authenticated successfully. EKS and VPC read calls worked in `ap-southeast-2`; the account had no EKS clusters there. Terraform validated and produced a fresh plan against the account with two `t3.small` workers and a restricted API CIDR. The saved plan and its exact CIDR are local and excluded from Git. This is still plan evidence only: there is no EKS provisioning or destroy evidence yet.
+The full archived offline output is in [terraform-offline-plan.txt](terraform-offline-plan.txt). On 14 October, the AWS CLI profile authenticated successfully. EKS and VPC read calls worked in `ap-southeast-2`; the account had no EKS clusters there. Terraform validated and produced a fresh plan against the account with two `t3.small` workers and a restricted API CIDR. The saved plan and its exact CIDR are local and excluded from Git. Terraform then applied the plan. The [AWS deployment log](aws-deployment.txt) records the live CLI and Kubernetes checks. The [teardown log](aws-destroy.txt) records the completed destroy and independent post-destroy checks.
 
 The local command outputs are in [tests.txt](tests.txt), [compose.txt](compose.txt), and [kubernetes.txt](kubernetes.txt). The [successful CI run](https://github.com/Godatcode/labpulse-devops-capstone/actions/runs/38449191634) shows tests, builds, scans, and publication. Both SHA-tagged GHCR manifests were accessible from Docker without a GHCR login.
 

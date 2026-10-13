@@ -79,7 +79,7 @@ Open the latest run on [GitHub Actions](https://github.com/Godatcode/labpulse-de
 
 ## 5. Terraform evidence in AWS
 
-The [validation notes](evidence/validation.md) contain both the archived offline plan and the result of an authenticated plan in Sydney (`ap-southeast-2`). Neither is deployment evidence. Before the demo, review the cost and set `admin_cidr` to your current public IP. Apply the reviewed plan, take VPC and EKS Console screenshots and show the managed nodes, then run `terraform destroy` and capture its completion. Keep credentials, state, and plan files out of Git.
+The [validation notes](evidence/validation.md) contain the authenticated Sydney (`ap-southeast-2`) plan, an `ACTIVE` EKS cluster and node group, two `Ready` nodes, Console screenshots, and completed teardown. The cluster is no longer running. If repeating the live demonstration, review the cost, set `admin_cidr` to your current public IP, apply the reviewed plan, capture the new cluster and VPC, then destroy it promptly. Keep credentials, state, and plan files out of Git.
 
 ## Evidence to capture for the submission
 

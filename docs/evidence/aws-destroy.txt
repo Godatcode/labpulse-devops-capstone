@@ -1,0 +1,26 @@
+AWS teardown verified: 2026-10-13 19:57:25 UTC
+
+$ terraform destroy -auto-approve
+Destroy complete! Resources: 24 destroyed.
+
+$ terraform state list
+(no resources in state)
+
+$ aws eks list-clusters --region ap-southeast-2
+{
+    "clusters": []
+}
+
+$ aws ec2 describe-vpcs --region ap-southeast-2 --filters Name=tag:Project,Values=LabPulse
+[]
+
+$ aws ec2 describe-nat-gateways --region ap-southeast-2 --filter Name=tag:Project,Values=LabPulse
+[
+    {
+        "id": "nat-0e1e26e3d4fe352c5",
+        "state": "deleted"
+    }
+]
+
+$ aws ec2 describe-addresses --region ap-southeast-2 --filters Name=tag:Project,Values=LabPulse
+[]

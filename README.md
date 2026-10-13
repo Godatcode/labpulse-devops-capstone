@@ -95,9 +95,9 @@ After a new commit passes CI, run `bash scripts/deploy-local.sh` to rebuild that
 
 ## Terraform and AWS
 
-`terraform/` defines a VPC with two public and two private subnets, internet and NAT routing, an EKS control plane, and a two-node managed group. It defaults to `ap-southeast-2`, the Region available to the project account, with two `t3.small` workers. `terraform init` and `terraform validate` passed. An authenticated AWS plan produced `24 to add, 0 to change, 0 to destroy`; the earlier offline plan is retained separately in the [validation notes](docs/evidence/validation.md). A plan checks the configuration but does not create infrastructure.
+`terraform/` defines a VPC with two public and two private subnets, internet and NAT routing, an EKS control plane, and a two-node managed group. It defaults to `ap-southeast-2`, the Region available to the project account, with two `t3.small` workers. `terraform init` and `terraform validate` passed. An authenticated AWS plan produced `24 to add, 0 to change, 0 to destroy`. Terraform then created all 24 resources. AWS reported the cluster and node group as `ACTIVE`, and `kubectl` showed both nodes `Ready`. The [validation notes](docs/evidence/validation.md) include the live checks and Console screenshots.
 
-`terraform apply` and `terraform destroy` have not run yet, so there are no AWS deployment screenshots. EKS, worker nodes, NAT, storage, and data transfer consume AWS credits while running. For the live demonstration, set `admin_cidr` to the current public IP, review the plan and cost, apply, capture VPC and EKS evidence, then destroy immediately after the demo. Do not commit `terraform.tfvars`, state, plan files, or credentials.
+After capturing evidence, `terraform destroy` removed all 24 resources. A separate AWS check found no LabPulse EKS cluster, VPC, or Elastic IP; AWS showed the former NAT gateway as `deleted`. Nothing from this Terraform stack should be left running. To repeat the live demonstration, set `admin_cidr` to the current public IP, review the plan and cost, apply, capture evidence, then destroy promptly. EKS, workers, NAT, storage, and data transfer consume AWS credits while running. Do not commit `terraform.tfvars`, state, plan files, or credentials.
 
 ## Monitoring
 
@@ -105,4 +105,4 @@ The backend exposes request counts and latency metrics at `/metrics`. The [Prome
 
 ## Current limits
 
-LabPulse is a classroom operations demo. It has no login or role checks, and the demo PostgreSQL chart uses a single replica. The local Ingress uses HTTP. Do not place this build on a public campus network without authentication, TLS, and a managed database. The Terraform EKS path has been validated and planned against the project AWS account, but not applied.
+LabPulse is a classroom operations demo. It has no login or role checks, and the demo PostgreSQL chart uses a single replica. The local Ingress uses HTTP. Do not place this build on a public campus network without authentication, TLS, and a managed database. The AWS EKS demonstration was short-lived and has been torn down; the runnable application remains available through the documented local Compose and Kind paths.
