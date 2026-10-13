@@ -1,11 +1,10 @@
 import pytest
+from app.database import Base, get_session
+from app.main import app
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
-
-from app.database import Base, get_session
-from app.main import app
 
 
 @pytest.fixture

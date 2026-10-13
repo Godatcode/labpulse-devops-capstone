@@ -1,0 +1,55 @@
+image:
+  backend:
+    repository: labpulse-backend
+    tag: local
+    pullPolicy: IfNotPresent
+  frontend:
+    repository: labpulse-frontend
+    tag: local
+    pullPolicy: IfNotPresent
+
+backend:
+  replicas: 2
+  demoSeed: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+frontend:
+  replicas: 2
+  resources:
+    requests:
+      cpu: 25m
+      memory: 32Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+postgres:
+  image: postgres:17-alpine
+  database: labpulse
+  user: labpulse
+  existingSecret: labpulse-db
+  storage: 1Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+ingress:
+  enabled: true
+  className: nginx
+  host: labpulse.local
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 70
