@@ -6,6 +6,8 @@ I chose this domain because a lab needs a visible handoff between classes. The a
 
 [Repository](https://github.com/Godatcode/labpulse-devops-capstone) · [API documentation](http://localhost:8000/docs) after starting Compose
 
+The [validation record](docs/evidence/validation.md) has command output and screenshots of the app, pipeline, published images, cluster monitoring, and commit history.
+
 ## What is in the repo
 
 | Directory | Purpose |
