@@ -5,9 +5,10 @@ Argo CD watches the public `main` branch and renders `helm/labpulse` using `valu
 On a fresh Kind cluster, build and load the local images before creating the Application:
 
 ```bash
+kind create cluster --name labpulse
 docker build -t labpulse-backend:22aa496b517c backend
 docker build -t labpulse-frontend:22aa496b517c frontend
-kind load docker-image labpulse-backend:22aa496b517c labpulse-frontend:22aa496b517c --name devops-homework
+kind load docker-image labpulse-backend:22aa496b517c labpulse-frontend:22aa496b517c --name labpulse
 kubectl create namespace labpulse
 kubectl -n labpulse create secret generic labpulse-db --from-literal=password=labpulse-local-only
 ```

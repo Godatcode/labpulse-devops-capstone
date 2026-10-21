@@ -154,8 +154,20 @@ text(58, 166, "All application pods were Running/Ready.", 15, ACCENT)
 text(58, 134, "HPA reported CPU metrics for the backend.", 15, MUTED)
 finish()
 
-# 7: Observability
-base(7, "Observability", "Application traffic appeared in Prometheus and Grafana")
+# 7: GitOps
+base(7, "GitOps with Argo CD", "A Git commit reconciled the local Helm release")
+shot("argocd-synced.png", 430, 116, 475, 292)
+lines(58, 365, [
+    "Application watches main.",
+    "Helm values live in Git.",
+    "Frontend replicas changed 2 -> 3.",
+    "Argo CD reached Synced / Healthy.",
+], size=17, leading=37)
+text(58, 154, "The running Deployment reached 3/3 Ready.", 15, ACCENT)
+finish()
+
+# 8: Observability
+base(8, "Observability", "Application traffic appeared in Prometheus and Grafana")
 shot("prometheus-targets.jpg", 53, 190, 413, 220)
 shot("grafana-dashboard.jpg", 494, 190, 413, 220)
 text(55, 159, "Prometheus: both backend targets UP", 15, INK)
@@ -164,8 +176,8 @@ text(55, 108, "FastAPI exposes /metrics; Prometheus scrapes both API pods every 
      15, MUTED)
 finish()
 
-# 8: Security and testing
-base(8, "Tests and security", "The pipeline checks behavior before it publishes images")
+# 9: Security and testing
+base(9, "Tests and security", "The pipeline checks behavior before it publishes images")
 text(62, 356, "10 API tests passed", 27, ACCENT, bold=True)
 lines(62, 315, [
     "Tests use an isolated SQLite database.",
@@ -178,8 +190,8 @@ text(62, 160, "Trivy blocked HIGH and CRITICAL findings", 23, INK, bold=True)
 text(62, 121, "Both runtime images passed the final scan; new findings fail CI.", 16, MUTED)
 finish()
 
-# 9: What the work taught me
-base(9, "What I learned", "The deployment evidence is reproducible, with clear limits")
+# 10: What the work taught me
+base(10, "What I learned", "The deployment evidence is reproducible, with clear limits")
 lines(62, 364, [
     "A green pipeline needs tests, image checks, and published tags.",
     "Kubernetes health depends on readiness, Services, and routing.",

@@ -1,6 +1,6 @@
 # Validation record
 
-Checked on 13–14 October 2026, using the local Compose stack, a Kind cluster, and a short-lived EKS deployment in AWS Sydney. The AWS resources were removed after verification.
+Checked on 13–14 and 21 October 2026, using the local Compose stack, a Kind cluster, and short-lived EKS deployments in AWS Sydney. The first AWS deployment was removed after verification; the 21 October teardown is recorded below.
 
 ## Visual evidence
 
@@ -14,6 +14,8 @@ Checked on 13–14 October 2026, using the local Compose stack, a Kind cluster, 
 - [Meaningful Git commit history](github-history.jpg)
 - [AWS EKS cluster active in Sydney](aws-eks-active.jpg)
 - [AWS VPC and subnet resource map](aws-vpc-active.jpg)
+- [Argo CD application: Synced and Healthy](argocd-synced.png)
+- [Presentation deck](../../demo/slides.pdf) and [captioned walkthrough](../../demo/walkthrough.mp4)
 
 | Check | Result |
 | --- | --- |
@@ -36,6 +38,9 @@ Checked on 13–14 October 2026, using the local Compose stack, a Kind cluster, 
 | HPA metrics | CPU available; backend at 2 replicas with 70% target |
 | Prometheus | Two `labpulse-backend` pod targets UP; request count query returned data |
 | Grafana | Dashboard `LabPulse · API health` provisioned with 3 panels and Prometheus datasource |
+| Argo CD on 21 October | Application tracked `main`, reached `Synced` and `Healthy` at commit `0cdcf607`; changing `frontend.replicas` in Git reconciled the frontend Deployment from 2 to 3 Ready pods |
+| Latest CI push | [Run 39573123517](https://github.com/Godatcode/labpulse-devops-capstone/actions/runs/39573123517) completed successfully: backend tests, frontend build, container build/scan/publish |
+| Presentation | Ten-slide PDF and a 114-second, 1920×1080 H.264 walkthrough with on-screen captions are in `demo/` |
 
 The offline plan used Terraform 1.16.5 with a reserved documentation IP and fake local credentials. Provider identity checks were skipped using `offline_plan=true`; no AWS API calls or resources were involved:
 
@@ -51,6 +56,6 @@ docker run --rm \
 
 The full archived offline output is in [terraform-offline-plan.txt](terraform-offline-plan.txt). On 14 October, the AWS CLI profile authenticated successfully. EKS and VPC read calls worked in `ap-southeast-2`; the account had no EKS clusters there. Terraform validated and produced a fresh plan against the account with two `t3.small` workers and a restricted API CIDR. The saved plan and its exact CIDR are local and excluded from Git. Terraform then applied the plan. The [AWS deployment log](aws-deployment.txt) records the live CLI and Kubernetes checks. The [teardown log](aws-destroy.txt) records the completed destroy and independent post-destroy checks.
 
-The local command outputs are in [tests.txt](tests.txt), [compose.txt](compose.txt), and [kubernetes.txt](kubernetes.txt). The [successful CI run](https://github.com/Godatcode/labpulse-devops-capstone/actions/runs/38449191634) shows tests, builds, scans, and publication. Both SHA-tagged GHCR manifests were accessible from Docker without a GHCR login.
+The local command outputs are in [tests.txt](tests.txt), [compose.txt](compose.txt), and [kubernetes.txt](kubernetes.txt). The [latest successful CI run](https://github.com/Godatcode/labpulse-devops-capstone/actions/runs/39573123517) shows tests, builds, scans, and publication. Both SHA-tagged GHCR manifests were accessible from Docker without a GHCR login.
 
 Trivy scanned Alpine OS packages in both runtime images and Python libraries in the backend. The first frontend scan found 43 HIGH findings in an older Nginx base; after moving to the current slim unprivileged image, the successful run reported zero HIGH/CRITICAL findings for both images. The gate still exits with a failure if a new HIGH or CRITICAL issue appears.
