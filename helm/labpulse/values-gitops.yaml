@@ -12,3 +12,7 @@ image:
 
 ingress:
   host: localhost
+
+# A visible GitOps change for the presentation: Argo CD reconciles three web pods.
+frontend:
+  replicas: 3

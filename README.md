@@ -4,7 +4,7 @@ LabPulse keeps a simple register of shared lab equipment and the problems report
 
 I chose this domain because a lab needs a visible handoff between classes. The app is small enough to explain during a live demo, while still giving the deployment real data, migrations, tests, and API traffic to monitor.
 
-[Repository](https://github.com/Godatcode/labpulse-devops-capstone) · [API documentation](http://localhost:8000/docs) after starting Compose
+[Repository](https://github.com/Godatcode/labpulse-devops-capstone) · [Presentation slides](demo/slides.pdf) · [Captioned walkthrough](demo/walkthrough.mp4) · [API documentation](http://localhost:8000/docs) after starting Compose
 
 The [validation record](docs/evidence/validation.md) has command output and screenshots of the app, pipeline, published images, cluster monitoring, and commit history.
 
@@ -17,6 +17,8 @@ The [validation record](docs/evidence/validation.md) has command output and scre
 | `helm/labpulse/` | PostgreSQL, two API pods, two web pods, Services, Ingress, HPA |
 | `terraform/` | Two-zone VPC and an EKS managed node group |
 | `monitoring/` | Prometheus scrape config and a Grafana dashboard |
+| `gitops/` | Argo CD Application for the local Kind deployment |
+| `demo/` | Presentation slides and captioned walkthrough |
 | `.github/workflows/ci.yml` | Tests, frontend build, Docker builds, Trivy gate, SHA-tagged GHCR images |
 
 ```mermaid
@@ -92,6 +94,8 @@ kubectl -n ingress-nginx port-forward svc/ingress-nginx-controller 8081:80
 Open [http://localhost:8081](http://localhost:8081). `/api` goes to the backend Service, and `/` goes to the frontend Service. The HPA needs Metrics Server; see [the demo runbook](docs/DEMO.md) for the local Kind installation and verification commands.
 
 After a new commit passes CI, run `bash scripts/deploy-local.sh` to rebuild that revision for the local Kind architecture and roll both Deployments to SHA-tagged images. `KIND_CLUSTER` and `KUBE_CONTEXT` can point the script at another local Kind cluster.
+
+For the GitOps demonstration, [install Argo CD and apply the Application](gitops/README.md). It watches `main` and renders the Helm chart with `values-gitops.yaml`. The local image tags are loaded into Kind; the CI pipeline independently publishes GHCR images for each passing commit. A change to `frontend.replicas` in Git is reflected in the running web Deployment after Argo CD syncs.
 
 ## Terraform and AWS
 
