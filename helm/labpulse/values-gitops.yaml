@@ -1,0 +1,14 @@
+# Local Kind images are loaded into the node before Argo CD syncs the chart.
+# CI publishes separate SHA-tagged GHCR images for the release pipeline.
+image:
+  backend:
+    repository: labpulse-backend
+    tag: 22aa496b517c
+    pullPolicy: IfNotPresent
+  frontend:
+    repository: labpulse-frontend
+    tag: 22aa496b517c
+    pullPolicy: IfNotPresent
+
+ingress:
+  host: localhost
