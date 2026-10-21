@@ -1,0 +1,29 @@
+AWS EKS demonstration — 21 October 2026
+Region: ap-southeast-2
+Cluster: labpulse-capstone
+Terraform: 1.16.5
+
+Authenticated plan:
+  Plan: 24 to add, 0 to change, 0 to destroy.
+
+Apply result:
+  Apply complete! Resources: 24 added, 0 changed, 0 destroyed.
+  EKS cluster status: ACTIVE
+  Managed node group: labpulse-capstone-nodes
+  kubectl get nodes: two nodes Ready
+
+The cluster and VPC were kept only for the walkthrough. The live AWS CLI
+checks in demo/walkthrough.mp4 were recorded before teardown.
+
+Destroy result:
+  Destroy complete! Resources: 24 destroyed.
+
+Independent checks after destroy:
+  aws eks list-clusters --region ap-southeast-2: {"clusters": []}
+  VPC tag labpulse-capstone-vpc: []
+  Elastic IP tag labpulse-capstone-nat-ip: []
+  terraform state list: 0 resources
+
+The AWS Console images in this evidence directory were captured during the
+first deployment of the same Terraform stack on 14 October. The 21 October
+walkthrough includes CLI footage of the second live deployment.
