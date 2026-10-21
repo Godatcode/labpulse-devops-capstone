@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:10,887
+The local cluster has healthy backend and frontend pods, PostgreSQL, three Services, an Nginx Ingress, and a backend autoscaler.
+
+2
+00:00:10,837 --> 00:00:18,212
+The API summary also responds through the Ingress, confirming the route from browser to service.

@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:07,800
+In the AWS Console capture, the VPC resource map shows the two public and two private subnets.
+
+2
+00:00:07,750 --> 00:00:15,287
+The private subnets hold the worker nodes, while routing and NAT provide controlled outbound access.

@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:08,612
+The Grafana dashboard shows requests handled, request rate by route, and ninety-fifth percentile response time.
+
+2
+00:00:08,562 --> 00:00:15,062
+After traffic is sent through the app, those panels display data from Prometheus.

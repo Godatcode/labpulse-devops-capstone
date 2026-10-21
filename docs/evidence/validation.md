@@ -5,17 +5,21 @@ Checked on 13–14 and 21 October 2026, using the local Compose stack, a Kind cl
 ## Visual evidence
 
 - [LabPulse overview through the local Ingress](labpulse-ingress.jpg)
+- [21 October live overview](labpulse-live-overview-2026-10-21.png) and [incident screen](labpulse-live-incidents-2026-10-21.png)
 - [LabPulse overview through Docker Compose](labpulse-compose.jpg)
 - [Prometheus: both backend targets UP](prometheus-targets.jpg)
+- [21 October live Prometheus targets](prometheus-targets-2026-10-21.png)
 - [Grafana: request volume, rate, and p95 latency](grafana-dashboard.jpg)
+- [21 October live Grafana dashboard](grafana-dashboard-2026-10-21.png)
 - [Successful GitHub Actions pipeline](github-actions.jpg)
+- [21 October successful push-triggered Actions run](github-actions-2026-10-21.png)
 - [Published backend image with SHA tag](ghcr-backend.jpg)
 - [Published frontend image with SHA tag](ghcr-frontend.jpg)
 - [Meaningful Git commit history](github-history.jpg)
 - [AWS EKS cluster active in Sydney](aws-eks-active.jpg)
 - [AWS VPC and subnet resource map](aws-vpc-active.jpg)
 - [Argo CD application: Synced and Healthy](argocd-synced.png)
-- [Presentation deck](../../demo/slides.pdf) and [captioned walkthrough](../../demo/walkthrough.mp4)
+- [Presentation deck](../../demo/slides.pdf), [narrated walkthrough](../../demo/walkthrough.mp4), and [captions](../../demo/captions.srt)
 - [21 October AWS apply and teardown checks](aws-demo-2026-10-21.txt)
 
 | Check | Result |
@@ -26,7 +30,7 @@ Checked on 13–14 and 21 October 2026, using the local Compose stack, a Kind cl
 | Compose | PostgreSQL and backend healthy; frontend served on port 3000 |
 | Compose API | `/api/summary` returned 6 equipment, 2 active reports, 1 resolved report |
 | Helm | `helm lint helm/labpulse` passed |
-| Kind deployment | PostgreSQL, 2 backend pods, 2 frontend pods Running/Ready |
+| Kind deployment | PostgreSQL, 2 backend pods, 3 frontend pods Running/Ready after GitOps sync |
 | Local Ingress | `localhost:8081/` returned HTML; `/api/summary` returned JSON |
 | Terraform init | HashiCorp AWS provider v6.68.0 installed successfully |
 | Terraform validate | `Success! The configuration is valid.` |
@@ -42,7 +46,8 @@ Checked on 13–14 and 21 October 2026, using the local Compose stack, a Kind cl
 | Argo CD on 21 October | Application tracked `main`, reached `Synced` and `Healthy` at commit `0cdcf607`; changing `frontend.replicas` in Git reconciled the frontend Deployment from 2 to 3 Ready pods |
 | GitOps change CI | [Run 39573123517](https://github.com/Godatcode/labpulse-devops-capstone/actions/runs/39573123517) completed successfully: backend tests, frontend build, container build/scan/publish |
 | Presentation push CI | [Run 39574857025](https://github.com/Godatcode/labpulse-devops-capstone/actions/runs/39574857025) also completed successfully |
-| Presentation | Ten-slide PDF and a 129-second, 1920×1080 H.264 walkthrough with on-screen captions are in `demo/` |
+| Presentation | Ten-slide PDF and a 291-second, 1920×1080 H.264 walkthrough with voiceover and on-screen captions are in `demo/` |
+| Narrated video CI example | [Run 39595649955](https://github.com/Godatcode/labpulse-devops-capstone/actions/runs/39595649955) completed successfully after the recorded push of `e89dc05` |
 
 The offline plan used Terraform 1.16.5 with a reserved documentation IP and fake local credentials. Provider identity checks were skipped using `offline_plan=true`; no AWS API calls or resources were involved:
 

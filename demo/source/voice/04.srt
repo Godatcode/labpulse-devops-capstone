@@ -1,0 +1,11 @@
+1
+00:00:00,100 --> 00:00:08,475
+The repository is split by responsibility: backend, frontend, Helm, Terraform, GitOps, and monitoring.
+
+2
+00:00:08,425 --> 00:00:12,650
+The API tests sit beside the backend code.
+
+3
+00:00:12,650 --> 00:00:18,337
+The deployment and dashboard configuration are versioned with the application.

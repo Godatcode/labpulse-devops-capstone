@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:05,325
+LabPulse is a small operations tracker for shared lab equipment.
+
+2
+00:00:05,275 --> 00:00:13,975
+This walkthrough follows the working app, the delivery pipeline, the AWS deployment evidence, and the monitoring setup.

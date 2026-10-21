@@ -1,0 +1,15 @@
+1
+00:00:00,100 --> 00:00:03,237
+The workflow defines the quality gate.
+
+2
+00:00:03,187 --> 00:00:09,162
+The Helm chart supplies Deployments, Services, Ingress, and an autoscaler.
+
+3
+00:00:09,162 --> 00:00:14,250
+Terraform defines the AWS network and EKS cluster.
+
+4
+00:00:14,250 --> 00:00:19,137
+Each part can be reviewed without searching through one large file.

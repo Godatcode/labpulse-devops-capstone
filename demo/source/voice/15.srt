@@ -1,0 +1,11 @@
+1
+00:00:00,100 --> 00:00:05,700
+The AWS environment was kept only long enough to verify it.
+
+2
+00:00:05,650 --> 00:00:09,425
+Terraform destroyed all twenty-four resources.
+
+3
+00:00:09,425 --> 00:00:18,275
+Separate AWS checks found no LabPulse EKS cluster, VPC, or reserved NAT address left behind.

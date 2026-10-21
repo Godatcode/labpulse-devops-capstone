@@ -1,0 +1,11 @@
+1
+00:00:00,100 --> 00:00:06,150
+The overview shows six instruments and the reports that affect their status.
+
+2
+00:00:06,100 --> 00:00:12,537
+A technician can open an incident, move a repair into progress, and resolve it.
+
+3
+00:00:12,537 --> 00:00:16,200
+The equipment badge follows the active reports.

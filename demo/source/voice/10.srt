@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:08,362
+The EKS cluster reached Active, the node group reached Active, and Kubernetes reported two Ready workers.
+
+2
+00:00:08,312 --> 00:00:18,725
+This Console capture is from the earlier live deployment of the same Terraform stack; the later CLI verification is preserved in the evidence log.

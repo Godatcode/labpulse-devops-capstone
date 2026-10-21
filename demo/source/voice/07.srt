@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:08,762
+The backend job lints and tests the API, while the frontend job checks formatting and builds production assets.
+
+2
+00:00:08,712 --> 00:00:18,275
+Only after both pass does the container job build, scan with Trivy, and publish SHA-tagged images to GitHub Container Registry.

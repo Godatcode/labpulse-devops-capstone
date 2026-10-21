@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:03,362
+Here is a real push to the main branch.
+
+2
+00:00:03,312 --> 00:00:11,525
+GitHub Actions starts from that commit, so the pipeline result can be tied to a specific version of the repository.

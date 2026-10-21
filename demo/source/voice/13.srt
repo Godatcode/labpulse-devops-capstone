@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:05,762
+Prometheus discovers both backend pods, and both targets are Up.
+
+2
+00:00:05,712 --> 00:00:17,212
+The API exposes request counts and latency at its metrics endpoint, which gives the monitoring stack application data rather than only container health.

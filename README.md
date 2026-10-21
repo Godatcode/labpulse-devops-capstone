@@ -4,7 +4,7 @@ LabPulse keeps a simple register of shared lab equipment and the problems report
 
 I chose this domain because a lab needs a visible handoff between classes. The app is small enough to explain during a live demo, while still giving the deployment real data, migrations, tests, and API traffic to monitor.
 
-[Repository](https://github.com/Godatcode/labpulse-devops-capstone) · [Presentation slides](demo/slides.pdf) · [Captioned walkthrough](demo/walkthrough.mp4) · [API documentation](http://localhost:8000/docs) after starting Compose
+[Repository](https://github.com/Godatcode/labpulse-devops-capstone) · [Presentation slides](demo/slides.pdf) · [Narrated walkthrough](demo/walkthrough.mp4) · [Captions](demo/captions.srt) · [API documentation](http://localhost:8000/docs) after starting Compose
 
 The [validation record](docs/evidence/validation.md) has command output and screenshots of the app, pipeline, published images, cluster monitoring, and commit history.
 
@@ -18,7 +18,7 @@ The [validation record](docs/evidence/validation.md) has command output and scre
 | `terraform/` | Two-zone VPC and an EKS managed node group |
 | `monitoring/` | Prometheus scrape config and a Grafana dashboard |
 | `gitops/` | Argo CD Application for the local Kind deployment |
-| `demo/` | Presentation slides and captioned walkthrough |
+| `demo/` | Presentation slides, narrated walkthrough, captions, and recording sources |
 | `.github/workflows/ci.yml` | Tests, frontend build, Docker builds, Trivy gate, SHA-tagged GHCR images |
 
 ```mermaid

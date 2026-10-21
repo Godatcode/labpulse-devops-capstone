@@ -1,0 +1,11 @@
+1
+00:00:00,100 --> 00:00:06,687
+Argo CD watches the main branch and renders the Helm chart for the local Kind cluster.
+
+2
+00:00:06,637 --> 00:00:11,075
+A committed replica change was reconciled automatically.
+
+3
+00:00:11,075 --> 00:00:17,725
+The application showed Synced and Healthy, and the frontend reached three Ready replicas.

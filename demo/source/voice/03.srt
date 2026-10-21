@@ -1,0 +1,11 @@
+1
+00:00:00,100 --> 00:00:03,937
+The browser reaches an Nginx frontend.
+
+2
+00:00:03,887 --> 00:00:11,662
+Requests under API go to FastAPI, which stores equipment and incidents in PostgreSQL.
+
+3
+00:00:11,662 --> 00:00:18,312
+The same backend exports Prometheus metrics, so the dashboard reflects real requests.

@@ -1,0 +1,7 @@
+1
+00:00:00,100 --> 00:00:11,837
+The result is a working app with tests, a guarded delivery pipeline, a demonstrated cloud deployment, GitOps reconciliation, and observable API traffic.
+
+2
+00:00:11,787 --> 00:00:17,650
+The repository includes the exact setup steps and evidence for each part.
